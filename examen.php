@@ -34,6 +34,15 @@ class Materia{
     public function getAP(): int{
         return $this->ap;
     }
+
+    public function __toString(): string{
+        return '
+        Nombre: '.$this->nombre.'<br>'.
+        'Tipo: '.$this->tipo.'<br>'.
+        'Nivel Máximo: '.$this->nivelMax.'<br>'.
+        'Nivel actual: '.$this->nivelActual.'<br>'.
+        'AP obtenidos :'.$this->ap;
+    }
 }
 
 class Materias{
@@ -57,7 +66,7 @@ class Materias{
     public function getTipoMateria($tipo): array{
         $tipoMateria = [];
         foreach($this->materias as $materia){
-            if($materia->getTipo() == $tipo){
+            if($materia->getTipo() === $tipo){
                 $tipoMateria[] = $materia;
             }
         }
