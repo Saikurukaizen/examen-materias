@@ -1,13 +1,13 @@
 <?php
 
 class Materia{
-    private $nombre;
-    private $tipo;
-    private $nivelMax;
-    private $nivelActual;
-    private $ap;
+    private string $nombre;
+    private string $tipo;
+    private int $nivelMax;
+    private int $nivelActual;
+    private int $ap;
 
-    public function __construct($nombre, $tipo, $nivelMax, $nivelActual, $ap){
+    public function __construct(string $nombre,string $tipo,int $nivelMax,int $nivelActual,int $ap){
         $this->nombre = $nombre;
         $this->tipo = $tipo;
         $this->nivelMax = $nivelMax;
@@ -15,23 +15,23 @@ class Materia{
         $this->ap = $ap;
     }
 
-    public function getNombre(){
+    public function getNombre(): string{
         return $this->nombre;
     }
 
-    public function getTipo(){
+    public function getTipo(): string{
         return $this->tipo;
     }
 
-    public function getNivelMax(){
+    public function getNivelMax(): int{
         return $this->nivelMax;
     }
 
-    public function getNivelActual(){
+    public function getNivelActual(): int{
         return $this->nivelActual;
     }
 
-    public function getAP(){
+    public function getAP(): int{
         return $this->ap;
     }
 }
@@ -39,12 +39,12 @@ class Materia{
 class Materias{
     private $materias = [];
 
-    public function addMateria(Materia $materia){
+    public function addMateria(Materia $materia): void{
         $this->materias[] = $materia;
     }
 
 
-    public function getInfoMateria(){
+    public function getInfoMateria(): void{
         foreach($this->materias as $materia){
             echo 'Nombre: '.$materia->getNombre().'<br>';
             echo 'Tipo: '.$materia->getTipo().'<br>';
@@ -52,6 +52,16 @@ class Materias{
             echo 'Nivel actual: '.$materia->getNivelactual().'<br>';
             echo 'AP obtenidos :'.$materia->getAP().'';
         }
+    }
+
+    public function getTipoMateria($tipo): array{
+        $tipoMateria = [];
+        foreach($this->materias as $materia){
+            if($materia->getTipo() == $tipo){
+                $tipoMateria[] = $materia;
+            }
+        }
+        return $tipoMateria;
     }
 
     public function getMateriaLessAP(){
@@ -72,14 +82,30 @@ $materia1 = new Materia("Vit+", "Independientes", 5, 2, 1500);
 $materia2 = new Materia("Corte Doble","Comando",3, 1, 20000);
 $materia3 = new Materia("Recuperar", "Mágica", 5, 2, 1000);
 $materia4 = new Materia("Elemento Básico", "Apoyo",4, 1, 5000);
+$materia5 = new Materia("Cubrir", "Independientes", 5, 1, 1200);
 
 $totalMaterias = new Materias();
 $totalMaterias->addMateria($materia1);
 $totalMaterias->addMateria($materia2);
 $totalMaterias->addMateria($materia3);
 $totalMaterias->addMateria($materia4);
+$totalMaterias->addMateria($materia5);
 
 $totalMaterias->getInfoMateria();
+
+$tipo = "Independientes";
+$tipoMaterias = $totalMaterias->getTipoMateria($tipo);
+if($tipoMaterias){
+    foreach($tipoMaterias as $materia){
+        echo 'Nombre: '.$materia->getNombre().'<br>';
+        echo 'Tipo: '.$materia->getTipo().'<br>';
+        echo 'Nivel Máximo: '.$materia->getNivelMax().'<br>';
+        echo 'Nivel actual: '.$materia->getNivelactual().'<br>';
+        echo 'AP obtenidos :'.$materia->getAP().'';
+    }
+} else {
+    echo 'No hay materias de '.$tipo.'<br>';
+}
 
 $materiaLessAP = $totalMaterias->getMateriaLessAP();
 if($materiaLessAP){
